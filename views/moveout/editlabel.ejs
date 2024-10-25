@@ -1,0 +1,89 @@
+<%- include("./../partials/header.ejs") %>
+
+<h1>Edit Label</h1>
+<form action="/editlabel/<%= label.id %>" method="POST" enctype="multipart/form-data">
+    <!-- Title -->
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="<%= label.title %>" required><br/>
+
+    <!-- Content Type Dropdown -->
+    <label for="content_type">Content Type:</label>
+    <select id="content_type" name="content_type">
+        <option value="text" <% if (label.content_type === 'text') { %>selected<% } %>>Text</option>
+        <option value="image" <% if (label.content_type === 'image') { %>selected<% } %>>Image</option>
+        <option value="video" <% if (label.content_type === 'video') { %>selected<% } %>>Video</option>
+        <option value="audio" <% if (label.content_type === 'audio') { %>selected<% } %>>Audio</option>
+    </select><br/>
+
+    <!-- Text content textarea -->
+    <div id="text-content" <% if (label.content_type !== 'text') { %>style="display: none;"<% } %>>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content"><%= label.content %></textarea>
+    </div>
+
+    <!-- File upload input -->
+    <div id="file-upload" <% if (label.content_type === 'text') { %>style="display: none;"<% } %>>
+        <label for="file">Upload New File (optional):</label>
+        <input type="file" id="file" name="file"><br/>
+
+        <!-- Show existing file -->
+        <% if (label.content_type === 'image') { %>
+            <p>Current Image:</p>
+            <img src="<%= label.content %>" alt="Current Image" style="max-width: 200px;"><br/>
+        <% } else if (label.content_type === 'video') { %>
+            <p>Current Video:</p>
+            <video src="<%= label.content %>" controls style="max-width: 200px;"></video><br/>
+        <% } else if (label.content_type === 'audio') { %>
+            <p>Current Audio:</p>
+            <audio src="<%= label.content %>" controls></audio><br/>
+        <% } %>
+
+        <!-- Hidden input to keep track of the existing file -->
+        <input type="hidden" name="existing_file" value="<%= label.content %>">
+    </div>
+
+    <!-- Icon selection (same as in create label) -->
+    <label for="icon">Choose Icons (optional):</label>
+    <div id="icon-selection">
+        <label>
+            <input type="checkbox" name="icons" value="fragile" <% if (label.icons && label.icons.includes('fragile')) { %>checked<% } %>>
+            <img src="/icons/fragile.png" alt="Fragile Icon" style="width:50px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="heavy" <% if (label.icons && label.icons.includes('heavy')) { %>checked<% } %>>
+            <img src="/icons/heavy.png" alt="Heavy Icon" style="width:50px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="flammable" <% if (label.icons && label.icons.includes('flammable')) { %>checked<% } %>>
+            <img src="/icons/flammable.png" alt="Flammable Icon" style="width:50px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="thissideup" <% if (label.icons && label.icons.includes('thissideup')) { %>checked<% } %>>
+            <img src="/icons/thissideup.png" alt="This side up" style="width:50px;height:50px;">
+        </label>
+    </div>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<script>
+    document.getElementById("content_type").addEventListener("change", function() {
+        const contentField = document.getElementById("content");
+        const uploadField = document.getElementById("file-upload");
+        const textContentDiv = document.getElementById("text-content");
+
+        // Show/hide fields based on selected content type
+        if (this.value === "image" || this.value === "video" || this.value === "audio") {
+            uploadField.style.display = "block";    // Show file upload field
+            textContentDiv.style.display = "none";  // Hide the text content field
+        } else {
+            uploadField.style.display = "none";     // Hide file upload field
+            textContentDiv.style.display = "block"; // Show the text content field
+        }
+    });
+
+    // Trigger the change event once on page load to set the correct initial state
+    document.getElementById("content_type").dispatchEvent(new Event("change"));
+</script>
+
+<%- include("./../partials/footer.ejs") %>

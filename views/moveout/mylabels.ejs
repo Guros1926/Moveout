@@ -1,0 +1,95 @@
+<%- include("./../partials/header.ejs") %>
+
+<h1>My Labels</h1>
+
+<div class="label-container">
+    <% labels.forEach(label => { %>
+        <a href="/viewlabel/<%= label.id %>" class="label-item">
+            <h3>Title: <%= label.title %></h3>
+            
+            <!-- QR Code in the middle of the label -->
+            <div class="qr-code-container">
+                <% if (label.qr_code) { %>
+                    <img class="qr-code" src="<%= label.qr_code %>" alt="QR Code for <%= label.title %>">
+                <% } %>
+            </div>
+
+            <div class="icon-container">
+                <% if (label.icons && label.icons.includes('fragile')) { %>
+                    <img class="label-icon" src="/icons/fragile.png" alt="Fragile Icon">
+                <% } %>
+                <% if (label.icons && label.icons.includes('heavy')) { %>
+                    <img class="label-icon" src="/icons/heavy.png" alt="Heavy Icon">
+                <% } %>
+                <% if (label.icons && label.icons.includes('flammable')) { %>
+                    <img class="label-icon" src="/icons/flammable.png" alt="flammable Icon">
+                <% } %>
+                <% if (label.icons && label.icons.includes('thissideup')) { %>
+                    <img class="label-icon" src="/icons/thissideup.png" alt="thissideup">
+                <% } %>
+            </div>
+        </a>
+    <% }); %>
+</div>
+
+<%- include("./../partials/footer.ejs") %>
+
+<style>
+    /* Style for the label items */
+    .label-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    .label-item {
+        position: relative;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 25px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        color: black;
+        transition: background-color 0.3s ease;
+    }
+
+    .label-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* QR Code container */
+
+    /* Styles for labels and QR code */
+    .qr-code-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .qr-code {
+        width: 700px;
+        height: 200px;
+    }
+
+
+    /* Icon Container */
+    .icon-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .label-icon {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+</style>

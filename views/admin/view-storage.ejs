@@ -1,0 +1,23 @@
+<%- include("../admin/dashboard.ejs") %>
+
+<h1>Storage Usage</h1>
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Email</th>
+            <th>Storage Used (MB)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% storageData.forEach(data => { %>
+        <tr>
+            <td><%= data.user_id %></td>
+            <td><%= data.email %></td>
+            <td><%= data.storage_used %> MB</td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+<%- include("../partials/footer.ejs") %>

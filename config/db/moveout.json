@@ -1,0 +1,7 @@
+{
+    "host":     "LAPTOP-OE3H6VRJ.local",
+    "user":     "dbadm",
+    "password": "P@ssw0rd",
+    "database": "content_db",
+    "multipleStatements": true
+}

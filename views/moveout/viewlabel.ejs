@@ -1,0 +1,113 @@
+<%- include("./../partials/header.ejs") %>
+
+<h1>Label: <%= label.title %></h1>
+
+<!-- Displaying the selected icons for the label -->
+<div class="icon-container">
+    <% if (label.icons && label.icons.includes('fragile')) { %>
+        <img class="label-icon" src="/icons/fragile.png" alt="Fragile Icon">
+    <% } %>
+    <% if (label.icons && label.icons.includes('heavy')) { %>
+        <img class="label-icon" src="/icons/heavy.png" alt="Heavy Icon">
+    <% } %>
+    <% if (label.icons && label.icons.includes('flammable')) { %>
+        <img class="label-icon" src="/icons/flammable.png" alt="Flammable Icon">
+    <% } %>
+    <% if (label.icons && label.icons.includes('thissideup')) { %>
+        <img class="label-icon" src="/icons/thissideup.png" alt="This side up">
+    <% } %>
+</div>
+
+<!-- Content container based on type -->
+<div class="content-container">
+    <% if (label.content_type === 'text') { %>
+        <p><%= label.content %></p>
+    <% } else if (label.content_type === 'image') { %>
+        <!-- Display image, make sure content has the correct path -->
+        <img src="<%= label.content.startsWith('/uploads/') ? label.content : '/uploads/' + label.content %>" alt="Label Image" style="max-width: 100%;">
+    <% } else if (label.content_type === 'video') { %>
+        <!-- Display video, ensure proper MIME type -->
+        <video src="<%= label.content.startsWith('/uploads/') ? label.content : '/uploads/' + label.content %>" controls style="max-width: 100%;">
+            Your browser does not support the video element.
+        </video>
+    <% } else if (label.content_type === 'audio') { %>
+        <!-- Display audio, ensure proper MIME type -->
+        <audio controls>
+            <source src="<%= label.content.startsWith('/uploads/') ? label.content : '/uploads/' + label.content %>" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    <% } %>
+</div>
+
+<!-- Edit and Delete Buttons -->
+<div class="button-container">
+    <!-- Edit Button -->
+    <button onclick="window.location.href='/editlabel/<%= label.id %>'">Edit</button>
+
+    <!-- Delete Button -->
+    <form action="/deletelabel/<%= label.id %>" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this label?');">Delete</button>
+    </form>
+</div>
+
+<%- include("./../partials/footer.ejs") %>
+
+<!-- Additional CSS -->
+<style>
+    .label-content {
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .icon-container {
+        display: flex;
+        margin-bottom: 15px;
+    }
+
+    .label-icon {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+    }
+
+    img, video, audio {
+        display: block;
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Button container styling */
+    .button-container {
+        margin-top: 20px;
+    }
+
+    .button-container button {
+        background-color: #4CAF50; /* Green background */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .button-container button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    /* Style for the delete button */
+    .button-container form button {
+        background-color: #f44336; /* Red background for delete */
+    }
+
+    .button-container form button:hover {
+        background-color: #d32f2f; /* Darker red on hover */
+    }
+</style>

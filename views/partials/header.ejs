@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Eshop</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/style/style.css">
+    </head>
+    <body>
+        <h1>Moving out</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+
+            <% if (session.userId) { %>
+                <li><a href="/createlabel">Create Label</a></li>
+                <li><a href="/mylabels">My Labels</a></li>
+                <li class="logout"><a href="/logout">Logout</a></li> <!-- Add a class for styling -->
+            <% } else { %>
+
+            <% } %>
+        </ul>
+

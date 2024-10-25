@@ -1,0 +1,148 @@
+body {
+    background-color: beige;
+}
+
+h1, p {
+    text-align: center;
+}
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    margin: 0 auto;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr ::first-letter {
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f4f1b3;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #cf7507;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 15px auto;
+    margin-bottom: 30px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    margin: 10px auto;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    text-decoration-line: underline;
+}
+
+/* Style for logout link to float to the right */
+li.logout {
+    float: right;  /* Float logout button to the right */
+}
+
+input[type=text], input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+img {
+    max-width: 20%;
+}
+
+.this {
+    display: flex;
+    justify-content: center;
+}
+
+.this li {
+    list-style-type: none;
+    margin-right: 10px;
+}
+
+.this a {
+    display: block;
+    outline: none;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+}
+
+.this a:hover {
+    text-decoration: underline;
+}
+
+/* New class for beige background */
+.beige-background {
+    background-color: beige;  /* Set background color to beige */
+    padding: 20px;  /* Add some padding for the list */
+    border-radius: 5px;  /* Optional: Add rounded corners for aesthetics */
+    margin: 0 auto;  /* Center the list */
+    width: 60%;  /* Optional: Set a width to control the size */
+}
+
+/* Style for list items */
+.beige-background li {
+    padding: 10px;  /* Add padding between labels */
+    border-bottom: 1px solid #ccc;  /* Optional: Add a border for separation */
+}
+
+.beige-background li:last-child {
+    border-bottom: none;  /* Remove the border from the last item */
+}

@@ -1,0 +1,48 @@
+<%- include("./../partials/header.ejs") %>
+
+<% if (!session.userId) { %> 
+   <h1>This is a software to help you label your boxes when moving out</h1>
+    <!-- If user is not logged in, show Login and Register buttons -->
+    <div class="this">
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+    </div>
+<% } else { %>
+    <!-- If user is logged in, display welcome message with username -->
+    <h1>Welcome, <%= session.email %>!</h1>
+<% } %>
+
+
+
+<%- include("./../partials/footer.ejs") %>
+
+<style>
+   p {
+       text-align: center;
+   }
+   
+   /* Center buttons and text */
+   .this {
+       display: flex;
+       justify-content: center;
+   }
+
+   .this li {
+       list-style-type: none;
+       margin-right: 10px;
+   }
+
+   .this a {
+       display: block;
+       outline: none;
+       padding: 10px 20px;
+       background-color: #333;
+       color: #fff;
+       border-radius: 12px;
+       text-decoration: none;
+   }
+
+   .this a:hover {
+       text-decoration: underline;
+   }
+</style>

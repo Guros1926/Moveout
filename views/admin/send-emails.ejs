@@ -1,0 +1,14 @@
+<%- include("../admin/dashboard.ejs") %>
+
+<h1>Send Marketing Emails</h1>
+<form action="/admin/send-emails" method="POST">
+    <label for="subject">Email Subject:</label><br>
+    <input type="text" name="subject" id="subject" required><br><br>
+
+    <label for="message">Email Message:</label><br>
+    <textarea name="message" id="message" required></textarea><br><br>
+
+    <button type="submit">Send Emails</button>
+</form>
+
+<%- include("../partials/footer.ejs") %>

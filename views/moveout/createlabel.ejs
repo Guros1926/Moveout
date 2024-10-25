@@ -1,0 +1,123 @@
+<%- include("./../partials/header.ejs") %>
+
+<h1>Create a New Label</h1>
+
+<form action="/addlabel" method="POST" enctype="multipart/form-data">
+    <!-- Title Input -->
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br/>
+
+    <!-- Content Type Dropdown -->
+    <label for="content_type">Content Type:</label>
+    <select id="content_type" name="content_type">
+        <option value="text">Text</option>
+        <option value="image">Image</option>
+        <option value="video">Video</option>
+        <option value="audio">Audio</option>
+    </select><br/>
+
+    <!-- Content Text Area for Text Input -->
+    <div id="text-content">
+        <label for="content">Content:</label>
+        <textarea id="content" name="content"></textarea><br/>
+    </div>
+
+    <!-- File Upload for Image, Video, and Audio -->
+    <div id="file-upload" style="display: none;">
+        <label for="file">Upload File (Image, Video, or Audio):</label>
+        <input type="file" id="file" name="file"><br/>
+    </div>
+
+    <!-- Private Option -->
+    <label>
+        <input type="checkbox" id="is_private" name="is_private" value="1">
+        Make this label private
+    </label><br/>
+
+    <!-- PIN Input (only shown if private is selected) -->
+    <div id="pin-container" style="display:none;">
+        <label for="pin">Enter a 6-digit PIN:</label>
+        <input type="text" id="pin" name="pin" pattern="\d{6}" maxlength="6" placeholder="123456">
+    </div><br/>
+
+    <!-- Icon Selection with Image Options (Checkboxes for Multiple Selections) -->
+    <label for="icon">Choose Icons (optional):</label>
+    <div id="icon-selection">
+        <label>
+            <input type="checkbox" name="icons" value="fragile">
+            <img src="/icons/fragile.png" alt="Fragile Icon" style="width:100px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="heavy">
+            <img src="/icons/heavy.png" alt="Heavy Icon" style="width:100px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="flammable">
+            <img src="/icons/flammable.png" alt="Flammable Icon" style="width:100px;height:50px;">
+        </label>
+        <label>
+            <input type="checkbox" name="icons" value="thissideup">
+            <img src="/icons/thissideup.png" alt="This side up" style="width:100px;height:50px;">
+        </label>
+    </div>
+
+    <button type="submit">Create Label</button>
+</form>
+
+<script>
+    document.getElementById("content_type").addEventListener("change", function() {
+        const contentField = document.getElementById("content");
+        const uploadField = document.getElementById("file");
+        const textContentDiv = document.getElementById("text-content");
+        const fileUploadDiv = document.getElementById("file-upload");
+
+        // Show/hide fields based on selected content type
+        if (this.value === "image" || this.value === "video" || this.value === "audio") {
+            fileUploadDiv.style.display = "block";    // Show file upload field
+            textContentDiv.style.display = "none";    // Hide text content field
+            contentField.removeAttribute("required"); // Remove required from text
+            uploadField.setAttribute("required", "required"); // Make file upload required
+        } else {
+            fileUploadDiv.style.display = "none";     // Hide file upload field
+            textContentDiv.style.display = "block";   // Show text content field
+            contentField.setAttribute("required", "required"); // Make text required
+            uploadField.removeAttribute("required");  // Remove required from file
+        }
+    });
+
+    // Show/Hide PIN field when "private" is checked
+    document.getElementById('is_private').addEventListener('change', function() {
+        const pinContainer = document.getElementById('pin-container');
+        pinContainer.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Trigger the change event once on page load to set the correct initial state
+    document.getElementById("content_type").dispatchEvent(new Event("change"));
+</script>
+
+<%- include("./../partials/footer.ejs") %>
+
+<style>
+    /* Add some spacing and styling for icon selection */
+    #icon-selection {
+        display: flex;
+        justify-content: space-around;
+        margin: 15px 0;
+    }
+
+    #icon-selection label {
+        cursor: pointer;
+    }
+
+    #icon-selection img {
+        border: 2px solid transparent;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+    }
+
+    /* Highlight the selected icon with a shadow and color */
+    #icon-selection input[type="checkbox"]:checked + img {
+        border: 2px solid #cf7507;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
